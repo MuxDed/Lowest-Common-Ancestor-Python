@@ -1,6 +1,7 @@
 import unittest
 
-target = __import__("LowestCommonAncestor.py")
+target = __import__("LowestCommonAncestor")
+
 Node = target.Node
 findLCAUtil = target.findLCAUtil
 
