@@ -1,6 +1,8 @@
 import unittest
 
-from LCA_Project import findLCAUtil
+target = __import__("LowestCommonAncestor.py")
+Node = target.Node
+findLCAUtil = target.findLCAUtil
 
 
 class TestLCA (unittest.TestCase):
@@ -16,6 +18,7 @@ class TestLCA (unittest.TestCase):
         root.right.right = Node(7)
 
         self.assertEqual(root, 2)
+
 
 if __name__ == '__main__':
     unittest.main()
