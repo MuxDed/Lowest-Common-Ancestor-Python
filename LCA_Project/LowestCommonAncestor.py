@@ -84,4 +84,4 @@ def findLCA(root, n1, n2):
 
 # This code is contributed by Nikhil Kumar Singh(nickzuck_007)
 # And gotten from geeksforgeeks.com
-# I chose this because it covers all possibilites
+# I chose this because it covers all possibilites even if n1 and/or n2 isn't in the tree
