@@ -5,6 +5,8 @@ It handles all cases even when n1 or n2 is not there in tree
 """
 
 # A binary tree node
+
+
 class Node:
 
     # Constructor to create a new node
@@ -17,6 +19,8 @@ class Node:
 # n1 and n2
 # v1 is set as true by this function if n1 is found
 # v2 is set as true by this function if n2 is found
+
+
 def findLCAUtil(root, n1, n2, v):
 
     # Base Case
@@ -66,6 +70,8 @@ def find(root, k):
 
 # This function returns LCA of n1 and n2 onlue if both
 # n1 and n2 are present in tree, otherwise returns None
+
+
 def findLCA(root, n1, n2):
 
     # Initialize n1 and n2 as not visited
