@@ -1,93 +1,48 @@
-
-""" Program to find LCA of n1 and n2 using one traversal of
- Binary tree
-It handles all cases even when n1 or n2 is not there in tree
-"""
-
-# A binary tree node
+import binary_tree as BT
 
 
-class Node:
-
-    # Constructor to create a new node
-    def __init__(self, key):
-        self.key = key
-        self.left = None
-        self.right = None
-
-# This function retturn pointer to LCA of two given values
-# n1 and n2
-# v1 is set as true by this function if n1 is found
-# v2 is set as true by this function if n2 is found
-
-
-def findLCAUtil(root, n1, n2, v):
-
-    # Base Case
-    if root is None:
+def lowest_common_ancestor_BT(binary_tree, node_a, node_b):
+    flag = 0
+    if binary_tree is None or node_a is None or node_b is None:
         return None
+    if not isinstance(binary_tree, BT.Node) or not isinstance(node_a, BT.Node) or not isinstance(node_b, BT.Node):
+        return None
+    if binary_tree.data is None or node_a.data is None or node_b.data is None:
+        return None
+    if node_a.data is node_b.data:
+        return node_a
+    if binary_tree.data is node_a.data or binary_tree.data is node_b.data:
+        return binary_tree
 
-    # IF either n1 or n2 matches ith root's key, report
-    # the presence by setting v1 or v2 as true and return
-    # root (Note that if a key is ancestor of other, then
-    # the ancestor key becomes LCA)
-    if root.key == n1 :
-        v[0] = True
-        return root
+    if node_a.data == binary_tree.data or node_b.data == binary_tree.data:
+        flag=1
 
-    if root.key == n2:
-        v[1] = True
-        return root
+    left_subtree = lowest_common_ancestor_BT(binary_tree.left, node_a, node_b)
+    right_subtree = lowest_common_ancestor_BT(binary_tree.right, node_a, node_b)
 
-    # Look for keys in left and right subtree
-    left_lca = findLCAUtil(root.left, n1, n2, v)
-    right_lca = findLCAUtil(root.right, n1, n2, v)
+    if left_subtree is None and right_subtree is None:
+        if flag == 0:
+            return None
+        else:
+            return binary_tree
 
-    # If both of the above calls return Non-NULL, then one key
-    # is present in once subtree and other is present in other,
-    # So this node is the LCA
-    if left_lca and right_lca:
-        return root
+    if left_subtree is not None and right_subtree is not None:
+        return binary_tree
 
-    # Otherwise check if left subtree or right subtree is LCA
-    return left_lca if left_lca is not None else right_lca
-
-
-def find(root, k):
-
-    # Base Case
-    if root is None:
-        return False
-
-    # If key is present at root, or if left subtree or right
-    # subtree , return true
-    if (root.key == k or find(root.left, k) or
-        find(root.right, k)):
-        return True
-
-    # Else return false
-    return False
-
-# This function returns LCA of n1 and n2 onlue if both
-# n1 and n2 are present in tree, otherwise returns None
-
-
-def findLCA(root, n1, n2):
-
-    # Initialize n1 and n2 as not visited
-    v = [False, False]
-
-    # Find lac of n1 and n2 using the technique discussed above
-    lca = findLCAUtil(root, n1, n2, v)
-
-    # Returns LCA only if both n1 and n2 are present in tree
-    if (v[0] and v[1] or v[0] and find(lca, n2) or v[1] and
-        find(lca, n1)):
-        return lca
-
-    # Else return None
-    return None
-
-# This code is contributed by Nikhil Kumar Singh(nickzuck_007)
-# And gotten from geeksforgeeks.com
-# I chose this because it covers all possibilites even if n1 and/or n2 isn't in the tree
+    if left_subtree is None:
+        if flag == 1:
+            if (right_subtree.data != node_a and right_subtree.data != node_b)\
+                    or right_subtree.data == binary_tree.data:
+                return right_subtree
+            elif right_subtree.data != binary_tree.data:
+                return binary_tree
+        else:
+            return right_subtree
+    else:
+        if flag == 1:
+            if (left_subtree.data != p and left_subtree.data != node_b) or left_subtree.data == binary_tree.data:
+                return left_subtree
+            elif left_subtree.data != binary_tree.data:
+                return binary_tree
+        else:
+            return left_subtree
